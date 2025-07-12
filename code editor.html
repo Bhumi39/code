@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Online Code Editor</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      resize: none;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+    }
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+    }
+    h2 {
+      margin: 10px 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>HTML</h2>
+  <textarea id="html" placeholder="Write HTML here..."><h1>Hello, World!</h1></textarea>
+  
+  <h2>CSS</h2>
+  <textarea id="css" placeholder="Write CSS here...">h1 { color: blue; text-align: center; }</textarea>
+  
+  <h2>JavaScript</h2>
+  <textarea id="js" placeholder="Write JavaScript here...">console.log("Hello from JS!")</textarea>
+
+  <h2>Output</h2>
+  <iframe id="output"></iframe>
+
+  <script>
+    const htmlCode = document.getElementById("html");
+    const cssCode = document.getElementById("css");
+    const jsCode = document.getElementById("js");
+    const output = document.getElementById("output");
+
+    function runCode() {
+      const html = htmlCode.value;
+      const css = `<style>${cssCode.value}</style>`;
+      const js = `<script>${jsCode.value}<\/script>`;
+      output.srcdoc = html + css + js;
+    }
+
+    // Run code on input change
+    [htmlCode, cssCode, jsCode].forEach(el => el.addEventListener("input", runCode));
+
+    // Run code on load
+    runCode();
+  </script>
+</body>
+</html>
